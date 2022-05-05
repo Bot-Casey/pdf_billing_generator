@@ -1,4 +1,4 @@
-variable "input_bucket_clients" {
+variable "billing_clients" {
   type = list
   default = [ 
     "someUser1", 

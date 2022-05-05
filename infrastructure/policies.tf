@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "billing_s3_role" {
   name = "billing_s3_role"
-  description = "allows iam input_bucket_clients to access billing_input s3 bucket"
+  description = "allows iam billing_clients to access billing_input s3 bucket"
 
   policy = jsonencode({
     "Version": "2012-10-17",
@@ -35,13 +35,13 @@ resource "aws_iam_policy" "billing_s3_role" {
 }
 
 resource "aws_iam_group_policy_attachment" "billing_s3_attachment" {
-  group = aws_iam_group.inputbucketgroup.name
+  group = aws_iam_group.billing_clients.name
   policy_arn = aws_iam_policy.billing_s3_role.arn
 }
 
 resource "aws_iam_policy" "billing_sqs_queue" {
   name = "billing_sqs_queue"
-  description = "allows iam input_bucket_clients to send SQS messages to billing_sqs_queue"
+  description = "allows iam billing_clients to send SQS messages to billing_sqs_queue"
 
   policy = jsonencode({
     "Version": "2012-10-17",
@@ -54,6 +54,6 @@ resource "aws_iam_policy" "billing_sqs_queue" {
 }
 
 resource "aws_iam_group_policy_attachment" "billing_sqs_attachment" {
-  group = aws_iam_group.inputbucketgroup.name
+  group = aws_iam_group.billing_clients.name
   policy_arn = aws_iam_policy.billing_sqs_queue.arn
 }
